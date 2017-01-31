@@ -1,0 +1,143 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.gojek.krith.contacts"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-annotations:24.2.1'
+    }
+}
+
+ext {
+    bottomBarVersion = '1.2.1'
+    butterknifeVersion = '8.4.0'
+    daggerVersion = '2.5'
+    dateTimePickerVersion = '2.5.0'
+    espressoVersion = '2.2.2'
+    etsyVersion = '1.0.5'
+    eventbusVersion = '3.0.0'
+    gsonVersion = '2.6.1'
+    junitVersion = '4.12'
+    okHttp3Version = '3.2.0'
+    okHttpInterceptorVersion = '3.2.0'
+    okioVersion = '1.7.0'
+    picassoVersion = '2.5.2'
+    recyclerViewAnimatorVersion = '2.2.4'
+    rxAndroidVersion = '1.2.0'
+    rxJavaVersion = '1.1.5'
+    retrofitVersion = '2.0.2'
+    sqlbriteVersion = '0.7.0'
+    supportAnnotationsVersion = '24.2.1'
+    supportLibraryVersion = '25.1.0'
+    supportTestVersion = '0.5'
+    timberVersion = '4.3.1'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Dagger 2 dependencies
+    compile "com.google.dagger:dagger:$daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    // View Injections
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    // Support Library
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+
+    // Staggered View Library
+    compile "com.etsy.android.grid:library:$etsyVersion"
+
+    // Image Downloading Library
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+
+    // REST Interactions
+    compile "com.squareup.okhttp3:okhttp:$okHttp3Version"
+    compile "com.squareup.okio:okio:$okioVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpInterceptorVersion"
+
+    // JSON Parsing
+    compile "com.google.code.gson:gson:$gsonVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // RxJava
+    compile "io.reactivex:rxandroid:$rxAndroidVersion"
+    compile "io.reactivex:rxjava:$rxJavaVersion"
+
+    // Retrofit RxJava
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+
+    // App's dependencies including Test
+    androidTestCompile("com.android.support:support-annotations:$supportAnnotationsVersion") {
+        exclude group: 'com.android.support'
+    }
+
+    // Testing only dependencies
+    testCompile "junit:junit:$junitVersion"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile("com.android.support.test:runner:$supportTestVersion") {
+        exclude group: 'com.android.support'
+    }
+    androidTestCompile("com.android.support.test:rules:$supportTestVersion") {
+        exclude group: 'com.android.support'
+    }
+
+    // Logging
+    compile "com.jakewharton.timber:timber:$timberVersion"
+
+    // RecyclerView Animations
+    compile "jp.wasabeef:recyclerview-animators:$recyclerViewAnimatorVersion"
+
+    // Bottom Bar
+    compile "com.roughike:bottom-bar:$bottomBarVersion"
+
+    // Sqlbrite for storing in local db
+    compile "com.squareup.sqlbrite:sqlbrite:$sqlbriteVersion"
+
+    // Date & Time picker
+    compile "com.wdullaer:materialdatetimepicker:$dateTimePickerVersion"
+
+    // EventBus
+    compile "org.greenrobot:eventbus:$eventbusVersion"
+
+    // Menu Floating Action Button
+    compile 'com.getbase:floatingactionbutton:1.10.0'
+
+    // Tags Group
+    compile 'me.gujun.android.taggroup:library:1.4@aar'
+
+    /*// Espresso-contrib for DatePicker, RecyclerView, Drawer actions, Accessibility checks, CountingIdlingResource
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude module: 'support-annotations'
+    }*/
+
+    // compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
+
+    //compile 'javax.inject:javax.inject:1'
+
+}
