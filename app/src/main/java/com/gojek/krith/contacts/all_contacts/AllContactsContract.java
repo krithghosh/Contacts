@@ -1,6 +1,5 @@
 package com.gojek.krith.contacts.all_contacts;
 
-import com.gojek.krith.contacts.add_contact.AddContactContract;
 import com.gojek.krith.contacts.models.Contact;
 
 import java.util.List;
@@ -11,13 +10,17 @@ import java.util.List;
 
 public interface AllContactsContract {
     public interface View {
-        void setUpPresenter(AddContactContract.Presenter presenter);
+        void setUpPresenter(Presenter presenter);
 
         void showLoader(boolean showLoader);
 
         void showContacts(List<Contact> contacts);
 
-        void setUpComponents();
+        void setupComponents();
+
+        void showNetworkError();
+
+        void showNoContactsAvailable();
     }
 
     public interface Presenter {
@@ -25,6 +28,6 @@ public interface AllContactsContract {
 
         void unSubscribe();
 
-        void fetchContacts();
+        void fetchContacts(boolean forceUpdate);
     }
 }

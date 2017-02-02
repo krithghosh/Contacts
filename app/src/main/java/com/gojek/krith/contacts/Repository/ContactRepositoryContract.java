@@ -12,13 +12,11 @@ import rx.Observable;
 
 public interface ContactRepositoryContract {
     public interface ContactMainRepository {
-        Observable<List<Contact>> getAllContacts(boolean forceUpdate, boolean isCacheDirty);
+        Observable<List<Contact>> getAllContacts(boolean forceUpdate);
 
         Observable<Contact> getContact(int serverId);
 
         Observable<Contact> markFavorite(Contact contact);
-
-        Observable<List<Contact>> addContacts(List<Contact> contact);
 
         Observable<Contact> addContact(Contact contact);
     }
@@ -30,7 +28,7 @@ public interface ContactRepositoryContract {
 
         void markFavorite(Contact contact);
 
-        void addContacts(List<Contact> contact);
+        Observable<List<Contact>> addContacts(List<Contact> contact);
 
         void addContact(Contact contact);
     }

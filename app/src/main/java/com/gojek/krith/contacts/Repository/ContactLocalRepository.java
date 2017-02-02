@@ -1,5 +1,7 @@
 package com.gojek.krith.contacts.Repository;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.gojek.krith.contacts.database.ContactTable;
 import com.gojek.krith.contacts.models.Contact;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -23,13 +25,13 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
 
     @Override
     public Observable<List<Contact>> getAllContacts() {
-        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_ALL_CONTACTS, null)
+        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_ALL_CONTACTS)
                 .mapToList(ContactTable.MAPPER);
     }
 
     @Override
     public Observable<Contact> getContact(int serverId) {
-        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_ALL_CONTACTS, null)
+        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_ALL_CONTACTS)
                 .mapToOne(ContactTable.MAPPER);
     }
 
@@ -42,11 +44,11 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                 .setFavorite(contact.getFavorite())
                 .setCreatedAt(contact.getCreatedAt())
                 .setUpdatedAt(contact.getUpdatedAt())
-                .build(), ID + "=?", new String[]{String.valueOf(contact.getId())});
+                .build(), ID + "=?", contact.getId().toString());
     }
 
     @Override
-    public void addContacts(List<Contact> contacts) {
+    public Observable<List<Contact>> addContacts(List<Contact> contacts) {
         BriteDatabase.Transaction transaction = briteDatabase.newTransaction();
         try {
             for (Contact contact : contacts) {
@@ -60,12 +62,13 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                         .setFavorite(contact.getFavorite())
                         .setCreatedAt(contact.getCreatedAt())
                         .setUpdatedAt(contact.getUpdatedAt())
-                        .build());
+                        .build(), SQLiteDatabase.CONFLICT_REPLACE);
             }
             transaction.markSuccessful();
         } finally {
             transaction.end();
         }
+        return getAllContacts();
     }
 
     @Override
@@ -80,6 +83,6 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                 .setFavorite(contact.getFavorite())
                 .setCreatedAt(contact.getCreatedAt())
                 .setUpdatedAt(contact.getUpdatedAt())
-                .build());
+                .build(), SQLiteDatabase.CONFLICT_REPLACE);
     }
 }

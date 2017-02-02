@@ -35,10 +35,4 @@ public class AppModule {
     Resources providesResource(Context context) {
         return context.getResources();
     }
-
-    @Provides
-    @Singleton
-    SharedPreferences provideSharedPreferences(Application application) {
-        return PreferenceManager.getDefaultSharedPreferences(application);
-    }
 }

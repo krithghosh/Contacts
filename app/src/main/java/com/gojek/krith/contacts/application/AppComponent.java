@@ -1,6 +1,10 @@
 package com.gojek.krith.contacts.application;
 
 import com.gojek.krith.contacts.Network.NetModule;
+import com.gojek.krith.contacts.Repository.ContactLocalRepository;
+import com.gojek.krith.contacts.Repository.ContactRemoteRepository;
+import com.gojek.krith.contacts.Repository.ContactRepository;
+import com.gojek.krith.contacts.Repository.ContactRepositoryModule;
 import com.gojek.krith.contacts.add_contact.AddContactActivity;
 import com.gojek.krith.contacts.all_contacts.AllContactsActivity;
 import com.gojek.krith.contacts.contact_details.ContactDetailsActivity;
@@ -15,7 +19,8 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, DbModule.class, NetModule.class})
+@Component(modules = {AppModule.class, DbModule.class, NetModule.class,
+        ContactRepositoryModule.class, SharedPreferenceModule.class})
 public interface AppComponent {
 
     void inject(AllContactsActivity allContactsActivity);
@@ -23,4 +28,12 @@ public interface AppComponent {
     void inject(AddContactActivity addContactActivity);
 
     void inject(ContactDetailsActivity contactDetailsActivity);
+
+    void inject(SharedPreferenceManager sharedPreferenceManager);
+
+    void inject(ContactRepository contactRepository);
+
+    void inject(ContactLocalRepository contactLocalRepository);
+
+    void inject(ContactRemoteRepository contactRemoteRepository);
 }

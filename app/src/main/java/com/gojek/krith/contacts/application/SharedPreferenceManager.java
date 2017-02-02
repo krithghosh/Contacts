@@ -14,6 +14,8 @@ public class SharedPreferenceManager {
 
     public static SharedPreferences sharedPreferences = null;
 
+    public static final String IS_CONTACTS_FETCHED_FROM_SERVER = "is_contact_fetched_from_server";
+
     @Inject
     public SharedPreferenceManager(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
