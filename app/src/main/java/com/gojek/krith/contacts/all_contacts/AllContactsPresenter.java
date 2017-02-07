@@ -21,19 +21,22 @@ public class AllContactsPresenter implements AllContactsContract.Presenter {
 
     AllContactsContract.View mView;
     ContactRepository mContactRepository;
-    Subscription mSubscription;
+    static Subscription mSubscription;
+    SharedPreferenceManager mSharedPreferenceManager;
     private final boolean FORCE_UPDATE = Boolean.TRUE;
     private final boolean SHOW_LOADER = Boolean.TRUE;
 
-    public AllContactsPresenter(AllContactsContract.View mView, ContactRepository mContactRepository) {
+    public AllContactsPresenter(AllContactsContract.View mView, ContactRepository mContactRepository,
+                                SharedPreferenceManager mSharedPreferenceManager) {
         this.mView = mView;
         this.mContactRepository = mContactRepository;
+        this.mSharedPreferenceManager = mSharedPreferenceManager;
         mView.setUpPresenter(this);
     }
 
     @Override
     public void subscribe() {
-        if (SharedPreferenceManager.getBoolean(IS_CONTACTS_FETCHED_FROM_SERVER))
+        if (mSharedPreferenceManager.getBoolean(IS_CONTACTS_FETCHED_FROM_SERVER))
             fetchContacts(!FORCE_UPDATE);
         else
             fetchContacts(FORCE_UPDATE);
@@ -48,13 +51,12 @@ public class AllContactsPresenter implements AllContactsContract.Presenter {
     @Override
     public void fetchContacts(boolean shouldForceUpdate) {
         mView.showLoader(SHOW_LOADER);
-        mContactRepository.getAllContacts(shouldForceUpdate)
+        mSubscription = mContactRepository.getAllContacts(shouldForceUpdate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Contact>>() {
                     @Override
                     public void onCompleted() {
-                        mView.showLoader(!SHOW_LOADER);
                     }
 
                     @Override
@@ -69,7 +71,8 @@ public class AllContactsPresenter implements AllContactsContract.Presenter {
                             mView.showNoContactsAvailable();
                             return;
                         }
-                        SharedPreferenceManager.putBoolean(IS_CONTACTS_FETCHED_FROM_SERVER, Boolean.TRUE);
+                        mSharedPreferenceManager.putBoolean(IS_CONTACTS_FETCHED_FROM_SERVER, Boolean.TRUE);
+                        mView.showLoader(!SHOW_LOADER);
                         mView.showContacts(contacts);
                     }
                 });

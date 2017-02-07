@@ -13,6 +13,8 @@ public interface AddContactContract {
         void showLoader(boolean showLoader);
 
         void setUpComponents();
+
+        void showNetworkError();
     }
 
     public interface Presenter {

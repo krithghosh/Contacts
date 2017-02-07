@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.gojek.krith.contacts.models.Contact;
+
 import rx.functions.Func1;
 
 /**
@@ -42,14 +43,14 @@ public class ContactTable {
             + URL + " TEXT,"
             + CREATED_AT + " TEXT,"
             + UPDATED_AT + " TEXT,"
-            + FAVORITE + " BOOLEAN DEFAULT FALSE"
+            + FAVORITE + " BOOLEAN DEFAULT FALSE "
             + ")";
 
     public static final class Builder {
 
         private final ContentValues contentValues = new ContentValues();
 
-        public Builder setId(long id) {
+        public Builder setId(int id) {
             contentValues.put(ID, id);
             return this;
         }
@@ -102,7 +103,6 @@ public class ContactTable {
         public ContentValues build() {
             return contentValues;
         }
-
     }
 
     public static Func1<Cursor, Contact> MAPPER = new Func1<Cursor, Contact>() {
@@ -118,6 +118,7 @@ public class ContactTable {
             contact.setPhoneNumber(Db.getString(cursor, PHONE_NUMBER));
             contact.setFavorite(Db.getBoolean(cursor, FAVORITE));
             contact.setUrl(Db.getString(cursor, URL));
+            contact.setProfilePic(Db.getString(cursor, PROFILE_PIC));
             contact.setCreatedAt(Db.getString(cursor, CREATED_AT));
             contact.setUpdatedAt(Db.getString(cursor, UPDATED_AT));
             return contact;

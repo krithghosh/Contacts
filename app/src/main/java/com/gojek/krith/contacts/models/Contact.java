@@ -40,6 +40,16 @@ public class Contact {
     @Expose
     private String updatedAt;
 
+    private boolean showLetter;
+
+    public boolean isShowLetter() {
+        return showLetter;
+    }
+
+    public void setShowLetter(boolean showLetter) {
+        this.showLetter = showLetter;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -49,7 +59,7 @@ public class Contact {
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName.replaceAll(" ", "").toLowerCase();
     }
 
     public void setFirstName(String firstName) {
@@ -57,7 +67,7 @@ public class Contact {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName.replaceAll(" ", "").toLowerCase();
     }
 
     public void setLastName(String lastName) {

@@ -5,4 +5,5 @@ package com.gojek.krith.contacts.add_contact;
  */
 
 public class AddContactPresenter {
+
 }

@@ -32,14 +32,14 @@ ext {
     daggerVersion = '2.5'
     dateTimePickerVersion = '2.5.0'
     espressoVersion = '2.2.2'
-    etsyVersion = '1.0.5'
+    circularImageView = '2.1.0'
     eventbusVersion = '3.0.0'
     gsonVersion = '2.6.1'
     junitVersion = '4.12'
     okHttp3Version = '3.2.0'
     okHttpInterceptorVersion = '3.2.0'
     okioVersion = '1.7.0'
-    picassoVersion = '2.5.2'
+    glideVersion = '3.7.0'
     recyclerViewAnimatorVersion = '2.2.4'
     rxAndroidVersion = '1.2.0'
     rxJavaVersion = '1.1.5'
@@ -68,10 +68,10 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
 
     // Staggered View Library
-    compile "com.etsy.android.grid:library:$etsyVersion"
+    compile "de.hdodenhof:circleimageview:$circularImageView"
 
     // Image Downloading Library
-    compile "com.squareup.picasso:picasso:$picassoVersion"
+    compile "com.github.bumptech.glide:glide:$glideVersion"
 
     // REST Interactions
     compile "com.squareup.okhttp3:okhttp:$okHttp3Version"

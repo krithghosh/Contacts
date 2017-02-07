@@ -1,6 +1,7 @@
 package com.gojek.krith.contacts.Repository;
 
 import com.gojek.krith.contacts.Network.RestApiService;
+import com.gojek.krith.contacts.application.App;
 import com.gojek.krith.contacts.models.Contact;
 
 import java.util.List;
@@ -18,6 +19,10 @@ public class ContactRemoteRepository implements ContactRepositoryContract.Contac
 
     @Inject
     Retrofit retrofit;
+
+    public ContactRemoteRepository() {
+        App.getComponent().inject(this);
+    }
 
     @Override
     public Observable<List<Contact>> getAllContacts() {

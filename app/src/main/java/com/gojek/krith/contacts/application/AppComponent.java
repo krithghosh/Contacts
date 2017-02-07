@@ -19,21 +19,18 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, DbModule.class, NetModule.class,
-        ContactRepositoryModule.class, SharedPreferenceModule.class})
+@Component(modules = {AppModule.class, NetModule.class, ContactRepositoryModule.class})
 public interface AppComponent {
-
-    void inject(AllContactsActivity allContactsActivity);
-
-    void inject(AddContactActivity addContactActivity);
-
-    void inject(ContactDetailsActivity contactDetailsActivity);
-
-    void inject(SharedPreferenceManager sharedPreferenceManager);
 
     void inject(ContactRepository contactRepository);
 
     void inject(ContactLocalRepository contactLocalRepository);
 
     void inject(ContactRemoteRepository contactRemoteRepository);
+
+    void inject(AllContactsActivity allContactsActivity);
+
+    void inject(AddContactActivity addContactActivity);
+
+    void inject(ContactDetailsActivity contactDetailsActivity);
 }

@@ -2,6 +2,7 @@ package com.gojek.krith.contacts.Repository;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gojek.krith.contacts.application.App;
 import com.gojek.krith.contacts.database.ContactTable;
 import com.gojek.krith.contacts.models.Contact;
 import com.squareup.sqlbrite.BriteDatabase;
@@ -22,6 +23,10 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
 
     @Inject
     BriteDatabase briteDatabase;
+
+    public ContactLocalRepository() {
+        App.getComponent().inject(this);
+    }
 
     @Override
     public Observable<List<Contact>> getAllContacts() {
@@ -52,6 +57,7 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
         BriteDatabase.Transaction transaction = briteDatabase.newTransaction();
         try {
             for (Contact contact : contacts) {
+                boolean fav = contact.getFavorite() != null ? contact.getFavorite() : false;
                 briteDatabase.insert(ContactTable.TABLE, new ContactTable.Builder()
                         .setId(contact.getId())
                         .setFirstName(contact.getFirstName())
@@ -59,7 +65,8 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                         .setEmail(contact.getEmail())
                         .setPhoneNumber(contact.getPhoneNumber())
                         .setUrl(contact.getUrl())
-                        .setFavorite(contact.getFavorite())
+                        .setFavorite(fav)
+                        .setProfilePic(contact.getProfilePic())
                         .setCreatedAt(contact.getCreatedAt())
                         .setUpdatedAt(contact.getUpdatedAt())
                         .build(), SQLiteDatabase.CONFLICT_REPLACE);
@@ -81,6 +88,7 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                 .setPhoneNumber(contact.getPhoneNumber())
                 .setUrl(contact.getUrl())
                 .setFavorite(contact.getFavorite())
+                .setProfilePic(contact.getProfilePic())
                 .setCreatedAt(contact.getCreatedAt())
                 .setUpdatedAt(contact.getUpdatedAt())
                 .build(), SQLiteDatabase.CONFLICT_REPLACE);

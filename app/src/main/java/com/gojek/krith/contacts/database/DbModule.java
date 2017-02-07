@@ -17,32 +17,24 @@ import rx.schedulers.Schedulers;
  */
 
 @Module
-@Singleton
 public class DbModule {
-
-    private static Application application;
-
-    public DbModule(Application application) {
-        this.application = application;
-    }
 
     @Provides
     @Singleton
-    public static SQLiteOpenHelper provideOpenHelper() {
+    public SQLiteOpenHelper provideOpenHelper(Application application) {
         return new DatabaseHelper(application);
     }
 
     @Provides
     @Singleton
-    public static SqlBrite provideSqlBrite() {
+    public SqlBrite provideSqlBrite() {
         return SqlBrite.create();
     }
 
     @Provides
     @Singleton
-    public static BriteDatabase provideDatabase(SqlBrite sqlBrite, SQLiteOpenHelper helper) {
+    public BriteDatabase provideDatabase(SqlBrite sqlBrite, SQLiteOpenHelper helper) {
         BriteDatabase db = sqlBrite.wrapDatabaseHelper(helper, Schedulers.io());
-        db.setLoggingEnabled(true);
         return db;
     }
 }

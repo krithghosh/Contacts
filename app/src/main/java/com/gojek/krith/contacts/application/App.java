@@ -13,7 +13,7 @@ import com.gojek.krith.contacts.utils.Toaster;
 
 public class App extends Application {
 
-    private AppComponent appComponent;
+    private static AppComponent appComponent;
     private final String BASE_URL = "http://gojek-contacts-app.herokuapp.com/";
 
     @Override
@@ -22,13 +22,12 @@ public class App extends Application {
         Toaster.init(this);
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .dbModule(new DbModule(this))
                 .netModule(new NetModule(BASE_URL))
                 .contactRepositoryModule(new ContactRepositoryModule())
                 .build();
     }
 
-    public AppComponent getComponent() {
+    public static AppComponent getComponent() {
         return appComponent;
     }
 }
