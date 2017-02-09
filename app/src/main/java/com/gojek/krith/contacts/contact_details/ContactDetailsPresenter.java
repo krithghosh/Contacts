@@ -57,6 +57,7 @@ public class ContactDetailsPresenter implements ContactDetailsContract.Presenter
                     public void onNext(Contact contact) {
                         mView.showLoader(!SHOW_LOADER);
                         mView.showContact(contact);
+                        mSubscription.unsubscribe();
                     }
                 });
     }
