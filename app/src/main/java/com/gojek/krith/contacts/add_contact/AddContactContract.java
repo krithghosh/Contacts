@@ -7,7 +7,7 @@ import com.gojek.krith.contacts.models.Contact;
  */
 
 public interface AddContactContract {
-    public interface View {
+    interface View {
         void setUpPresenter(Presenter presenter);
 
         void showLoader(boolean showLoader);
@@ -15,10 +15,12 @@ public interface AddContactContract {
         void setUpComponents();
 
         void showNetworkError();
+
+        void contactSaved();
     }
 
-    public interface Presenter {
-        void subscribe();
+    interface Presenter {
+        void subscribe(Contact contact);
 
         void unSubscribe();
 

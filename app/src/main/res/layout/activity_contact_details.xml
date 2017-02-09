@@ -1,13 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_contact_details"
+    android:id="@+id/rv_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gojek.krith.contacts.contact_details.ContactDetailsActivity">
 
+    <RelativeLayout
+        android:id="@+id/rv_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_profile_image"
+            android:layout_width="@dimen/pic_size"
+            android:layout_height="@dimen/pic_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/content_gutter"
+            android:src="@drawable/ic_placeholder"
+            app:civ_border_color="@color/border_color"
+            app:civ_border_width="@dimen/border_x2" />
+
+        <com.gojek.krith.contacts.utils.LatoRegularTextView
+            android:id="@+id/tv_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_profile_image"
+            android:layout_marginTop="@dimen/content_gutter"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_big" />
+
+        <com.gojek.krith.contacts.utils.LatoRegularTextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_full_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/text_view_margin"
+            android:layout_marginRight="@dimen/text_view_margin"
+            android:layout_marginTop="@dimen/content_gutter"
+            android:drawableStart="@drawable/ic_call"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_medium" />
+
+        <com.gojek.krith.contacts.utils.LatoRegularTextView
+            android:id="@+id/tv_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_phone_number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/text_view_margin"
+            android:layout_marginRight="@dimen/text_view_margin"
+            android:layout_marginTop="@dimen/content_gutter"
+            android:drawableStart="@drawable/ic_email"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageView
+            android:id="@+id/iv_fav"
+            android:layout_width="@dimen/btn_fav_size"
+            android:layout_height="@dimen/btn_fav_size"
+            android:layout_below="@id/tv_email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/content_gutter"
+            android:src="@drawable/ic_not_fav" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>
+
+

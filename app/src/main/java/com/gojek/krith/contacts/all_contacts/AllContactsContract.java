@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface AllContactsContract {
-    public interface View {
+    interface View {
         void setUpPresenter(Presenter presenter);
 
         void showLoader(boolean showLoader);
@@ -23,7 +23,7 @@ public interface AllContactsContract {
         void showNoContactsAvailable();
     }
 
-    public interface Presenter {
+    interface Presenter {
         void subscribe();
 
         void unSubscribe();

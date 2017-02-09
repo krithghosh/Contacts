@@ -36,12 +36,20 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
 
     @Override
     public Observable<Contact> getContact(int serverId) {
-        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_ALL_CONTACTS)
+        return briteDatabase.createQuery(ContactTable.TABLE, ContactTable.QUERY_CONTACT,
+                Integer.toString(serverId))
                 .mapToOne(ContactTable.MAPPER);
     }
 
     @Override
     public void markFavorite(Contact contact) {
+        briteDatabase.update(ContactTable.TABLE, new ContactTable.Builder()
+                .setFavorite(contact.getFavorite())
+                .build(), ID + "=?", contact.getId().toString());
+    }
+
+    @Override
+    public void updateContact(Contact contact) {
         briteDatabase.update(ContactTable.TABLE, new ContactTable.Builder()
                 .setId(contact.getId())
                 .setEmail(contact.getEmail())
@@ -50,6 +58,11 @@ public class ContactLocalRepository implements ContactRepositoryContract.Contact
                 .setCreatedAt(contact.getCreatedAt())
                 .setUpdatedAt(contact.getUpdatedAt())
                 .build(), ID + "=?", contact.getId().toString());
+    }
+
+    @Override
+    public void deleteAllContacts() {
+        briteDatabase.delete(ContactTable.TABLE, null, null);
     }
 
     @Override

@@ -34,7 +34,6 @@ public class DbModule {
     @Provides
     @Singleton
     public BriteDatabase provideDatabase(SqlBrite sqlBrite, SQLiteOpenHelper helper) {
-        BriteDatabase db = sqlBrite.wrapDatabaseHelper(helper, Schedulers.io());
-        return db;
+        return sqlBrite.wrapDatabaseHelper(helper, Schedulers.io());
     }
 }

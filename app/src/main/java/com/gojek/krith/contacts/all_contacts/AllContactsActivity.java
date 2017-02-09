@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.gojek.krith.contacts.adapter.ContactListAdapter;
 import com.gojek.krith.contacts.R;
 import com.gojek.krith.contacts.Repository.ContactRepository;
+import com.gojek.krith.contacts.add_contact.AddContactActivity;
 import com.gojek.krith.contacts.application.App;
 import com.gojek.krith.contacts.application.SharedPreferenceManager;
 import com.gojek.krith.contacts.contact_details.ContactDetailsActivity;
@@ -28,7 +29,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AllContactsActivity extends AppCompatActivity implements AllContactsContract.View {
+import static com.gojek.krith.contacts.utils.AppUtils.SERVER_ID;
+
+public class AllContactsActivity extends AppCompatActivity implements AllContactsContract.View, View.OnClickListener {
 
     @BindView(R.id.rv_all_contacts)
     RecyclerView rvAllContacts;
@@ -42,9 +45,8 @@ public class AllContactsActivity extends AppCompatActivity implements AllContact
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
-    AllContactsContract.Presenter mPresenter;
-
-    ContactListAdapter mContactListAdapter;
+    private AllContactsContract.Presenter mPresenter;
+    private ContactListAdapter mContactListAdapter;
 
     @Inject
     ContactRepository mContactRepository;
@@ -60,20 +62,21 @@ public class AllContactsActivity extends AppCompatActivity implements AllContact
         setupComponents();
         setupTaskAdapter();
         setupRecyclerView();
+        btnAddContact.setOnClickListener(this);
     }
 
-    public void setupTaskAdapter() {
+    private void setupTaskAdapter() {
         mContactListAdapter = new ContactListAdapter(new ArrayList<Contact>(), this);
         mContactListAdapter.SetOnItemClickListener(new ContactListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, int id) {
                 startActivity(new Intent(getApplicationContext(), ContactDetailsActivity.class)
-                        .putExtra("id", id));
+                        .putExtra(SERVER_ID, id));
             }
         });
     }
 
-    public void setupRecyclerView() {
+    private void setupRecyclerView() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvAllContacts.setLayoutManager(mLayoutManager);
         rvAllContacts.setItemAnimator(new DefaultItemAnimator());
@@ -115,11 +118,29 @@ public class AllContactsActivity extends AppCompatActivity implements AllContact
 
     @Override
     public void showNetworkError() {
-        SnackbarUtils.showSnackbar(mainLayout, "Not able to fetch the data");
+        SnackbarUtils.showSnackbar(mainLayout, getString(R.string.not_able_to_reach_server));
     }
 
     @Override
     public void showNoContactsAvailable() {
-        SnackbarUtils.showSnackbar(mainLayout, "Contacts not available");
+        SnackbarUtils.showSnackbar(mainLayout, getString(R.string.contacts_not_available));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add_contact:
+                startActivity(new Intent(this, AddContactActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }

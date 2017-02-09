@@ -11,17 +11,17 @@ import rx.Observable;
  */
 
 public interface ContactRepositoryContract {
-    public interface ContactMainRepository {
+    interface ContactMainRepository {
         Observable<List<Contact>> getAllContacts(boolean forceUpdate);
 
         Observable<Contact> getContact(int serverId);
 
-        Observable<Contact> markFavorite(Contact contact);
+        Observable<Contact> markFavorite(int serverId);
 
         Observable<Contact> addContact(Contact contact);
     }
 
-    public interface ContactLocalRepository {
+    interface ContactLocalRepository {
         Observable<List<Contact>> getAllContacts();
 
         Observable<Contact> getContact(int serverId);
@@ -31,9 +31,13 @@ public interface ContactRepositoryContract {
         Observable<List<Contact>> addContacts(List<Contact> contact);
 
         void addContact(Contact contact);
+
+        void updateContact(Contact contact);
+
+        void deleteAllContacts();
     }
 
-    public interface ContactRemoteRepository {
+    interface ContactRemoteRepository {
         Observable<List<Contact>> getAllContacts();
 
         Observable<Contact> getContact(int serverId);

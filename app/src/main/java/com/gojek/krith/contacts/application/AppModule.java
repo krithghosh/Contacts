@@ -20,7 +20,7 @@ import dagger.Provides;
 @Module(includes = {DbModule.class})
 public class AppModule {
 
-    Application application;
+    private final Application application;
 
     public AppModule(Application application) {
         this.application = application;

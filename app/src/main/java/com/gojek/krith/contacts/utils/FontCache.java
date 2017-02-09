@@ -9,9 +9,9 @@ import java.util.HashMap;
  * Created by krith on 31/01/17.
  */
 
-public class FontCache {
+class FontCache {
 
-    private static HashMap<String, Typeface> fontCache = new HashMap<>();
+    private static final HashMap<String, Typeface> fontCache = new HashMap<>();
 
     public static Typeface getTypeface(String fontname, Context context) {
         Typeface typeface = fontCache.get(fontname);

@@ -19,10 +19,10 @@ import static com.gojek.krith.contacts.application.SharedPreferenceManager.IS_CO
 
 public class AllContactsPresenter implements AllContactsContract.Presenter {
 
-    AllContactsContract.View mView;
-    ContactRepository mContactRepository;
-    static Subscription mSubscription;
-    SharedPreferenceManager mSharedPreferenceManager;
+    private final AllContactsContract.View mView;
+    private final ContactRepository mContactRepository;
+    private static Subscription mSubscription;
+    private final SharedPreferenceManager mSharedPreferenceManager;
     private final boolean FORCE_UPDATE = Boolean.TRUE;
     private final boolean SHOW_LOADER = Boolean.TRUE;
 
@@ -44,7 +44,7 @@ public class AllContactsPresenter implements AllContactsContract.Presenter {
 
     @Override
     public void unSubscribe() {
-        if (mSubscription != null || !mSubscription.isUnsubscribed())
+        if (!(mSubscription == null || mSubscription.isUnsubscribed()))
             mSubscription.unsubscribe();
     }
 

@@ -8,7 +8,6 @@ import com.gojek.krith.contacts.Repository.ContactRepositoryModule;
 import com.gojek.krith.contacts.add_contact.AddContactActivity;
 import com.gojek.krith.contacts.all_contacts.AllContactsActivity;
 import com.gojek.krith.contacts.contact_details.ContactDetailsActivity;
-import com.gojek.krith.contacts.database.DbModule;
 
 import javax.inject.Singleton;
 

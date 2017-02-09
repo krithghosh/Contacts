@@ -14,15 +14,15 @@ import rx.functions.Func1;
 public class ContactTable {
     public static final String TABLE = "contact";
     public static final String ID = "id";
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
-    public static final String EMAIL = "email";
-    public static final String PHONE_NUMBER = "phone_number";
-    public static final String PROFILE_PIC = "profile_pic";
-    public static final String FAVORITE = "favorite";
-    public static final String CREATED_AT = "created_at";
-    public static final String UPDATED_AT = "updated_at";
-    public static final String URL = "url";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String EMAIL = "email";
+    private static final String PHONE_NUMBER = "phone_number";
+    private static final String PROFILE_PIC = "profile_pic";
+    private static final String FAVORITE = "favorite";
+    private static final String CREATED_AT = "created_at";
+    private static final String UPDATED_AT = "updated_at";
+    private static final String URL = "url";
     public static final String QUERY_ALL_CONTACTS = "SELECT " + ID + ", "
             + FIRST_NAME + ", " + LAST_NAME + ", " + EMAIL + ", " + PHONE_NUMBER + ", "
             + PROFILE_PIC + ", " + FAVORITE + ", " + CREATED_AT + ", " + UPDATED_AT + ", "
@@ -105,7 +105,7 @@ public class ContactTable {
         }
     }
 
-    public static Func1<Cursor, Contact> MAPPER = new Func1<Cursor, Contact>() {
+    public static final Func1<Cursor, Contact> MAPPER = new Func1<Cursor, Contact>() {
 
         @Override
         public Contact call(Cursor cursor) {

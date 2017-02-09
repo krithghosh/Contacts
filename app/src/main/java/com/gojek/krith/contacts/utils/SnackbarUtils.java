@@ -1,9 +1,7 @@
 package com.gojek.krith.contacts.utils;
 
-import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * Created by krith on 31/01/17.

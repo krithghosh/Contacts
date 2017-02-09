@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Contacts</string>
     <string name="db_error">Db Error</string>
+    <string name="not_able_to_reach_server">Not able to fetch the data</string>
+    <string name="contacts_not_available">Contacts not available</string>
+    <string name="first_name_not_valid">First name not valid</string>
+    <string name="last_name_not_valid">Last name not valid</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="phone_number_not_valid">Phone number not valid</string>
+    <string name="hint_first_name">Wayne</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="rooney">Rooney</string>
+    <string name="email">Email</string>
+    <string name="done">Done</string>
+    <string name="hint_phone_number">+91-XXXX-XXXX-XX</string>
+    <string name="wayne_example_com">wayne@example.com</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

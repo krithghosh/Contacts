@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 
 import java.util.Set;
 
-import javax.inject.Inject;
 
 /**
  * Created by krith on 01/02/17.
@@ -14,7 +13,7 @@ public class SharedPreferenceManager {
 
     private final SharedPreferences sharedPreferences;
 
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences.Editor editor;
 
     public static final String IS_CONTACTS_FETCHED_FROM_SERVER = "is_contact_fetched_from_server";
 

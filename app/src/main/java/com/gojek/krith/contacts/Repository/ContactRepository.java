@@ -18,8 +18,8 @@ import rx.functions.Func1;
 
 public class ContactRepository implements ContactRepositoryContract.ContactMainRepository {
 
-    private ContactLocalRepository localRepository;
-    private ContactRemoteRepository remoteRepository;
+    private final ContactLocalRepository localRepository;
+    private final ContactRemoteRepository remoteRepository;
 
     @Inject
     public ContactRepository(ContactLocalRepository localRepository, ContactRemoteRepository remoteRepository) {
@@ -27,7 +27,7 @@ public class ContactRepository implements ContactRepositoryContract.ContactMainR
         this.remoteRepository = remoteRepository;
     }
 
-    Map<Integer, Contact> mCachedContacts = null;
+    private Map<Integer, Contact> mCachedContacts;
 
     @Override
     public Observable<List<Contact>> getAllContacts(boolean forceUpdate) {
@@ -57,6 +57,12 @@ public class ContactRepository implements ContactRepositoryContract.ContactMainR
 
     private Observable<List<Contact>> getContactsFromRemoteRepository() {
         return remoteRepository.getAllContacts()
+                .doOnNext(new Action1<List<Contact>>() {
+                    @Override
+                    public void call(List<Contact> contacts) {
+                        localRepository.deleteAllContacts();
+                    }
+                })
                 .flatMap(new Func1<List<Contact>, Observable<List<Contact>>>() {
                     @Override
                     public Observable<List<Contact>> call(List<Contact> contacts) {
@@ -92,22 +98,43 @@ public class ContactRepository implements ContactRepositoryContract.ContactMainR
                     @Override
                     public Observable<Contact> call(Contact contact) {
                         if (contact.getCreatedAt() != null)
-                            return Observable.just(contact);
+                            return Observable.just(contact).first();
                         else
-                            return remoteRepository.getContact(id);
+                            return findContactFromRemoteRepository(id);
                     }
                 });
     }
 
+    private Observable<Contact> findContactFromRemoteRepository(final int id) {
+        return remoteRepository.getContact(id)
+                .doOnNext(new Action1<Contact>() {
+                    @Override
+                    public void call(Contact contact) {
+                        if (contact.getFavorite() == null)
+                            contact.setFavorite(false);
+                        localRepository.updateContact(contact);
+                    }
+                }).first();
+    }
+
     @Override
-    public Observable<Contact> markFavorite(Contact contact) {
+    public Observable<Contact> markFavorite(final int id) {
+        return localRepository.getContact(id)
+                .flatMap(new Func1<Contact, Observable<Contact>>() {
+                    @Override
+                    public Observable<Contact> call(Contact contact) {
+                        contact.setFavorite(!contact.getFavorite());
+                        return markFavoriteRemotely(contact);
+                    }
+                });
+    }
+
+    private Observable<Contact> markFavoriteRemotely(Contact contact) {
         return remoteRepository.markFavorite(contact)
                 .doOnNext(new Action1<Contact>() {
                     @Override
                     public void call(Contact contact) {
                         localRepository.markFavorite(contact);
-                        contact.setUrl(mCachedContacts.get(contact.getId()).getUrl());
-                        mCachedContacts.put(contact.getId(), contact);
                     }
                 });
     }
@@ -117,8 +144,13 @@ public class ContactRepository implements ContactRepositoryContract.ContactMainR
         return remoteRepository.addContact(contact).doOnNext(new Action1<Contact>() {
             @Override
             public void call(Contact contact) {
+                if (contact.getFavorite() == null)
+                    contact.setFavorite(false);
                 localRepository.addContact(contact);
-                mCachedContacts.clear();
+                if (mCachedContacts != null)
+                    mCachedContacts.clear();
+                else
+                    mCachedContacts = new LinkedHashMap<>();
                 getContactsFromLocalRepository();
             }
         });

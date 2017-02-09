@@ -1,5 +1,6 @@
 package com.gojek.krith.contacts.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactListViewHolder> {
     private List<Contact> contacts;
-    OnItemClickListener mItemClickListener;
-    AllContactsActivity allContactsActivity;
+    private OnItemClickListener mItemClickListener;
+    private final AllContactsActivity allContactsActivity;
 
     public ContactListAdapter(List<Contact> contacts, AllContactsActivity allContactsActivity) {
         updateContactList(contacts);
@@ -43,12 +44,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         Contact contact = this.contacts.get(position);
         String fullName = contact.getFirstName().substring(0, 1)
                 .toUpperCase().concat(contact.getFirstName().substring(1))
+                .concat(" ")
                 .concat(contact.getLastName().substring(0, 1)
                         .toUpperCase().concat(contact.getLastName().substring(1)));
         holder.tvName.setText(fullName);
         Glide.with(allContactsActivity)
                 .load(contact.getProfilePic())
-                .placeholder(allContactsActivity.getResources().getDrawable(R.drawable.ic_placeholder))
+                .placeholder(ContextCompat.getDrawable(allContactsActivity, R.drawable.ic_placeholder))
                 .into(holder.ivProfileImage);
         holder.ivFav.setVisibility(position == 0 && contact.getFavorite() ? View.VISIBLE : View.GONE);
         if (contact.getFavorite())
@@ -95,10 +97,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     public class ContactListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView tvLetter;
-        public TextView tvName;
-        public ImageView ivFav;
-        public CircleImageView ivProfileImage;
+        public final TextView tvLetter;
+        public final TextView tvName;
+        public final ImageView ivFav;
+        public final CircleImageView ivProfileImage;
 
         public ContactListViewHolder(View view) {
             super(view);
@@ -116,7 +118,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position, int id);
+        void onItemClick(View view, int position, int id);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

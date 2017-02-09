@@ -1,13 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_contact"
+    android:id="@+id/rv_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gojek.krith.contacts.add_contact.AddContactActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/iv_profile_image"
+        android:layout_width="@dimen/pic_size"
+        android:layout_height="@dimen/pic_size"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_placeholder"
+        app:civ_border_color="@color/border_color"
+        app:civ_border_width="@dimen/border_x2" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularTextView
+        android:id="@+id/tv_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_profile_image"
+        android:layout_marginStart="@dimen/content_gutter_x2"
+        android:layout_marginTop="@dimen/content_gutter"
+        android:text="@string/first_name"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_normal" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularEditText
+        android:id="@+id/et_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignStart="@+id/tv_first_name"
+        android:layout_below="@+id/tv_first_name"
+        android:layout_marginEnd="@dimen/content_gutter_x2"
+        android:background="@drawable/background"
+        android:hint="@string/hint_first_name"
+        android:paddingEnd="@dimen/zero"
+        android:paddingStart="@dimen/content_gutter"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/hint_color" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularTextView
+        android:id="@+id/tv_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_first_name"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/last_name"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_normal" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularEditText
+        android:id="@+id/et_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignStart="@+id/tv_first_name"
+        android:layout_below="@+id/tv_last_name"
+        android:layout_marginEnd="@dimen/content_gutter_x2"
+        android:background="@drawable/background"
+        android:hint="@string/rooney"
+        android:paddingEnd="@dimen/zero"
+        android:paddingStart="@dimen/content_gutter"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/hint_color" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularTextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_last_name"
+        android:layout_marginStart="@dimen/content_gutter_x2"
+        android:layout_marginTop="@dimen/content_gutter"
+        android:text="@string/email"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_normal" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularEditText
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignStart="@+id/tv_first_name"
+        android:layout_below="@+id/tv_email"
+        android:layout_marginEnd="@dimen/content_gutter_x2"
+        android:background="@drawable/background"
+        android:hint="@string/wayne_example_com"
+        android:paddingEnd="@dimen/zero"
+        android:paddingStart="@dimen/content_gutter"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/hint_color" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularTextView
+        android:id="@+id/tv_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_email"
+        android:layout_marginStart="@dimen/content_gutter_x2"
+        android:layout_marginTop="@dimen/content_gutter"
+        android:text="@string/phone_number"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_normal" />
+
+    <com.gojek.krith.contacts.utils.LatoRegularEditText
+        android:id="@+id/et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignStart="@+id/tv_first_name"
+        android:layout_below="@+id/tv_phone_number"
+        android:layout_marginEnd="@dimen/content_gutter_x2"
+        android:background="@drawable/background"
+        android:hint="@string/hint_phone_number"
+        android:paddingEnd="@dimen/zero"
+        android:paddingStart="@dimen/content_gutter"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/hint_color" />
+
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_alignEnd="@+id/et_phone_number"
+        android:layout_below="@+id/et_phone_number"
+        android:layout_marginTop="@dimen/content_gutter"
+        android:background="@drawable/btn_custom"
+        android:text="@string/done"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>

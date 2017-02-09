@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="@dimen/contact_row_height"
     android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rv_inner_layout"
-        android:layout_width="64dp"
+        android:layout_width="@dimen/contact_row_height"
         android:layout_height="match_parent">
 
         <ImageView
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:src="@drawable/ic_star_24dp"
             android:visibility="gone" />
 
@@ -25,36 +25,34 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="A"
             android:textColor="@color/pink"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_bigger"
             android:visibility="visible" />
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/iv_profile_image"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="@dimen/profile_pic_size_row"
+        android:layout_height="@dimen/profile_pic_size_row"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/rv_inner_layout"
+        android:layout_toEndOf="@+id/rv_inner_layout"
         android:src="@drawable/ic_placeholder"
-        app:civ_border_color="#BDBDBD"
-        app:civ_border_width="2dp" />
+        app:civ_border_color="@color/border_color"
+        app:civ_border_width="@dimen/border_x2" />
 
     <com.gojek.krith.contacts.utils.LatoRegularTextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@id/iv_profile_image"
+        android:layout_marginStart="@dimen/content_gutter"
+        android:layout_toEndOf="@id/iv_profile_image"
         android:gravity="center_vertical"
-        android:text="Kritartha Ghosh"
-        android:textColor="#424242"
-        android:textSize="18sp" />
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_normal" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="@dimen/border_half"
         android:layout_alignParentBottom="true"
-        android:background="#EEEEEE" />
+        android:background="@color/border_color" />
 </RelativeLayout>

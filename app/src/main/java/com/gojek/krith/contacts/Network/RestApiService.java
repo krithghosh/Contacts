@@ -8,7 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -21,11 +21,11 @@ public interface RestApiService {
     Observable<List<Contact>> getAllContacts();
 
     @GET("/contacts/{id}.json")
-    Observable<Contact> getContact(@Query("id") int id);
+    Observable<Contact> getContact(@Path("id") int id);
 
     @POST("/contacts.json")
     Observable<Contact> addContact(@Body Contact contact);
 
     @PUT("/contacts/{id}.json")
-    Observable<Contact> updateContact(@Query("id") int id, @Body Contact contact);
+    Observable<Contact> updateContact(@Path("id") int id, @Body Contact contact);
 }

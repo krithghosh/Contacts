@@ -6,9 +6,8 @@ import android.database.Cursor;
  * Created by krith on 01/02/17.
  */
 
-public final class Db {
-    public static final int BOOLEAN_FALSE = 0;
-    public static final int BOOLEAN_TRUE = 1;
+final class Db {
+    private static final int BOOLEAN_TRUE = 1;
 
     public static String getString(Cursor cursor, String columnName) {
         return cursor.getString(cursor.getColumnIndexOrThrow(columnName));
