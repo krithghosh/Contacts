@@ -40,6 +40,7 @@ ext {
     okHttpInterceptorVersion = '3.2.0'
     okioVersion = '1.7.0'
     glideVersion = '3.7.0'
+    mockitoVersion = '2.7.5'
     recyclerViewAnimatorVersion = '2.2.4'
     rxAndroidVersion = '1.2.0'
     rxJavaVersion = '1.1.5'
@@ -97,6 +98,7 @@ dependencies {
 
     // Testing only dependencies
     testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -139,5 +141,6 @@ dependencies {
     // compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
 
     //compile 'javax.inject:javax.inject:1'
+    compile "com.google.guava:guava:16+"
 
 }

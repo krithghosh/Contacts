@@ -28,5 +28,7 @@ public interface ContactDetailsContract {
         void unSubscribe();
 
         void markFavourite(int id);
+
+        void getContact(int id);
     }
 }

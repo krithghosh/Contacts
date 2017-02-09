@@ -37,7 +37,8 @@ public class ContactDetailsPresenter implements ContactDetailsContract.Presenter
             mSubscription.unsubscribe();
     }
 
-    private void getContact(int id) {
+    @Override
+    public void getContact(int id) {
         mView.showLoader(SHOW_LOADER);
         mSubscription = mContactRepository.getContact(id)
                 .subscribeOn(Schedulers.io())
