@@ -1,6 +1,7 @@
 package com.gojek.krith.contacts.contact_details;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.gojek.krith.contacts.R;
 import com.gojek.krith.contacts.Repository.ContactRepository;
 import com.gojek.krith.contacts.all_contacts.AllContactsActivity;
@@ -115,6 +117,10 @@ public class ContactDetailsActivity extends AppCompatActivity implements Contact
                         .toUpperCase().concat(contact.getLastName().substring(1))));
         phoneNumber.setText(contact.getPhoneNumber());
         email.setText(contact.getEmail());
+        Glide.with(this)
+                .load(contact.getProfilePic())
+                .placeholder(ContextCompat.getDrawable(this, R.drawable.ic_placeholder))
+                .into(profilePic);
         fav.setImageResource(contact.getFavorite() ? R.drawable.ic_fav : R.drawable.ic_not_fav);
         innerLayout.setVisibility(View.VISIBLE);
     }
